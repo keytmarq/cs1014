@@ -1,22 +1,19 @@
-  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-  <script>
-    // JavaScript to toggle rotation of the revolving box
-    const box = document.querySelector('.revolving-box');
-    const toggleRotationBtn = document.getElementById('toggleRotationBtn');
+// script.js
 
-    let isRotating = true; // Initial state of rotation
+// Get the box and button elements
+const box = document.querySelector('.revolving-box');
+const toggleRotationBtn = document.getElementById('toggleRotationBtn');
 
-    toggleRotationBtn.addEventListener('click', function() {
-      if (isRotating) {
-        // Pause rotation by removing the animation
-        box.style.animation = 'none';
-        toggleRotationBtn.textContent = 'Start Rotation'; // Change button text
-      } else {
-        // Resume rotation by adding the animation back
-        box.style.animation = 'rotateCube 5s infinite linear';
-        toggleRotationBtn.textContent = 'Pause Rotation'; // Change button text
-      }
-      
-      // Toggle the state
-      isRotating = !isRotating;
-    });
+let isRotating = true; // Initial state of rotation
+
+// Add click event listener to toggle the rotation
+toggleRotationBtn.addEventListener('click', function() {
+  if (isRotating) {
+    box.style.animation = 'none'; // Stop rotation
+    toggleRotationBtn.textContent = 'Start Rotation'; // Change button text
+  } else {
+    box.style.animation = 'rotateCube 5s infinite linear'; // Start rotation
+    toggleRotationBtn.textContent = 'Pause Rotation'; // Change button text
+  }
+  isRotating = !isRotating; // Toggle the state
+});

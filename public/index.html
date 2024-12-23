@@ -8,7 +8,7 @@
   <meta name="keywords" content="horror">
   <title>Horror Stories - Will You Make It or Not?</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
-  <link rel="icon" type="image/image0.jpg" href="https://cdn.glitch.global/44ae7ea6-47bd-47bf-9ca1-dfcbb933ad3b/55ec2e47-b4b4-40e6-9a45-d26a32336692.image.png?v=1734679204011">
+  <link rel="icon" type="image/png" href="https://cdn.glitch.global/44ae7ea6-47bd-47bf-9ca1-dfcbb933ad3b/55ec2e47-b4b4-40e6-9a45-d26a32336692.image.png?v=1734679204011">
 </head>
 <body>
   <header>
@@ -17,11 +17,13 @@
       This is a horror game, designed for you to play and conquer your fears! There would be specification of what to do, depending on how you will strategize to win. You must also finish the maze within a 60-second time limit. However, if you lose, you get a big punishment. 👿
     </p>
   </header>
+
   <main>
     <section>
       <h2>! The Game !</h2>
       <p>___________________________________________________________________________________________________________________________________________</p>
     </section>
+
     <section>
       <h2>Featured Games</h2>
       <article>
@@ -37,9 +39,10 @@
         <p>Horror stories included in the game, and some explanations needed.</p>
       </article>
     </section>
+
     <section>
       <h2>Revolving Box</h2>
-      <div class="revolving-box">
+      <div class="revolving-box" id="box">
         <div class="face front">
           <div class="box-content">Game Start!</div>
         </div>
@@ -59,26 +62,22 @@
           <div class="box-content">The Maze Awaits...</div>
         </div>
       </div>
+      <button id="toggleRotationBtn">Pause Rotation</button>
     </section>
-    <section id="tsparticles">
+
+    <section class="pictur">
+      <img src="https://cdn.glitch.global/44ae7ea6-47bd-47bf-9ca1-dfcbb933ad3b/565e518c-8395-4e45-a841-ee7f3ba7a62a.image.png?v=1734757001090" alt="Scary Image">
+      <p>This picture serves its purpose to scare the audience who will be playing in our website.</p>
     </section>
   </main>
+
   <footer>
     <p id="footer">Copyright © K. Crisostomo & R. FADERON from 9Cs</p>
   </footer>
-  <p>
-    Sources: W3Schools.com. (n.d.). https://www.w3schools.com/
-  </p>
-  
-<div class="pictur 1">
-  <img src="https://cdn.glitch.global/44ae7ea6-47bd-47bf-9ca1-dfcbb933ad3b/565e518c-8395-4e45-a841-ee7f3ba7a62a.image.png?v=1734757001090" alt="Bottom Image" style="width: 50%; height: auto;">
-</div>
-  <p>
-    This picture serves its purpose to scare the audience who will be playign in our website.
-  </p>
-  
-  <!--The index.html document sets the foundation for the horror-themed web game. The structure is simple, but it is highly effective in presenting the game foundation and information, offering navigation to the other parts of the website.
 
-The use of internal CSS ensures the page has the consistent and clean design, but with more advanced styling (such as transitions and specific color themes) that could further enhance the horror aesthetic.-->
+  <p>Sources: W3Schools.com. (n.d.). https://www.w3schools.com/</p>
+
+  <!-- Link to External JavaScript File -->
+  <script src="script.js"></script>
 </body>
 </html>
