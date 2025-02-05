@@ -1,53 +1,145 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <meta name="author" content="Crisostomo, Faderon">
-  <meta name="description" content="horror game">
-  <meta name="keywords" content="horror">
-  <title>Horror Stories - Will You Make It or Not?</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-   <link rel="icon" type="image/image0.jpg" href="https://cdn.glitch.global/44ae7ea6-47bd-47bf-9ca1-dfcbb933ad3b/55ec2e47-b4b4-40e6-9a45-d26a32336692.image.png?v=1734679204011">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Game</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 2px solid black;
+            display: block;
+            margin: auto;
+        }
+        #timer {
+            font-size: 24px;
+            color: red;
+        }
+    </style>
 </head>
-
 <body>
-  
-       <div class="topnav">
-  <a href = "index.html">Home</a>
-  <a href="thegame.html">The Game</a>
-  <a href="#contact">Contact us</a>
-  <a href="#about">About us</a>
-    <header>
-        <h1>Game Mechanics</h1>
+    <h1>Maze Game</h1>
+    <p>Use arrow keys to move the blue square to the green goal. You have 30 seconds!</p>
+    <div id="timer">Time left: 30s</div>
+    <canvas id="mazeCanvas" width="600" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById("mazeCanvas");
+        const ctx = canvas.getContext("2d");
 
+        const tileSize = 40;
+        
+        // Level 1 Maze
+        const level1 = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 0, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
+            [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 1, 1, 1, 0, 1, 1, 0, 2], 
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ];
 
-    </header>
+        // Level 2 Maze
+        const level2 = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1],
+            [1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+            [1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1],
+            [1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1],
+            [1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1],
+            [1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 2, 1, 1]
+        ];
 
-    <p>___________________________________________________________________________________________________________________________________________</p>
+        let currentLevel = 1;
+        let maze = level1;
+        let player = { x: 1, y: 1 };
+        let timeLeft = 30;
+        let gameOver = false;
 
-    <main>
-        <section>
-            <h2>KR Collection || Game Mechanics 🧭</h2>
-            <article>
-                <h3>Game Outline 1</h3>
-                <p>This game is reccomended for those who are into horror games. Otherwise, you can still play it if you have a brave soul in you. This game tests accuracy and also tests how scared of a person you are. This is a simple, but fun game, although therea is is a plot twist, however if you lose.</p>
-            </article>
-            <article>
-                <h3>Game Outline 2</h3>
-                <p>All you need is a device, and a courser. This is a one player game, but your friends can also watch you while playing. Or, another option is to take turns.</p>
-            </article>
-        </section>
-    </main>
-    <footer>
-         Copyright &copy K. Crisostomo & R. Faderon
-    </footer>
+        function drawMaze() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let row = 0; row < maze.length; row++) {
+                for (let col = 0; col < maze[row].length; col++) {
+                    if (maze[row][col] === 1) {
+                        ctx.fillStyle = "black";
+                    } else if (maze[row][col] === 2) {
+                        ctx.fillStyle = "green";
+                    } else {
+                        ctx.fillStyle = "white";
+                    }
+                    ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+                }
+            }
+            ctx.fillStyle = "blue";
+            ctx.fillRect(player.x * tileSize, player.y * tileSize, tileSize, tileSize);
+        }
 
+        function movePlayer(dx, dy) {
+            let newX = player.x + dx;
+            let newY = player.y + dy;
+
+            if (maze[newY] && maze[newY][newX] !== 1) {
+                player.x = newX;
+                player.y = newY;
+                if (maze[newY][newX] === 2) {
+                    if (currentLevel === 1) {
+                        alert("You win! Moving to level 2.");
+                        currentLevel = 2;
+                        maze = level2;
+                        player = { x: 1, y: 1 };
+                        timeLeft = 30;
+                    } else {
+                        alert("You win! You completed all levels!");
+                        resetGame();
+                    }
+                }
+                drawMaze();
+            }
+        }
+
+        function updateTimer() {
+            if (timeLeft > 0 && !gameOver) {
+                timeLeft--;
+                document.getElementById("timer").textContent = `Time left: ${timeLeft}s`;
+            } else if (timeLeft === 0) {
+                alert("Time's up! You lose!");
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            currentLevel = 1;
+            maze = level1;
+            player = { x: 1, y: 1 };
+            timeLeft = 30;
+            gameOver = false;
+            drawMaze();
+        }
+
+        window.addEventListener("keydown", function (event) {
+            if (gameOver) return; // Do nothing if the game is over
+
+            switch (event.key) {
+                case "ArrowUp": movePlayer(0, -1); break;
+                case "ArrowDown": movePlayer(0, 1); break;
+                case "ArrowLeft": movePlayer(-1, 0); break;
+                case "ArrowRight": movePlayer(1, 0); break;
+            }
+        });
+
+        setInterval(updateTimer, 1000); // Update timer every second
+        drawMaze();
+    </script>
 </body>
-  
-  
-<!-- The games.html document represents the "Game Mechanics" page for the horror-themed game named "Will You Make It or Not?" The page is designed to further more explain the mechanics of the game focusing on how players can engage and navigate the game's dark secrets. 
-
-The structure of the page is simple yet constructive design with the content is divided into articles that provides brief descriptions of different game outlines, implying what kind of horror experiences the players would expect. -->
 </html>
